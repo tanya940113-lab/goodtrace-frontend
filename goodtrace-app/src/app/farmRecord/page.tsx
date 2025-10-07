@@ -1,5 +1,5 @@
-import CreateRecordForm from "../components/farmRecord/CreateRecordForm";
-import QueryRecordCount from "../components/farmRecord/QueryRecordCount";
+import CreateRecordForm from "@/components/farmRecord/CreateRecordForm";
+import QueryRecordCount from "@/components/farmRecord/QueryRecordCount";
 
 export default function FarmRecordPage() {
   return (

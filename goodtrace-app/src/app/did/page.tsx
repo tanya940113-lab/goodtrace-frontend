@@ -1,6 +1,6 @@
-import RegisterDIDForm from "../components/did/RegisterDIDForm";
-import AddVerificationMethodForm from "../components/did/AddVerificationMethodForm";
-import ResolveControllerForm from "../components/did/ResolveControllerForm";
+import RegisterDIDForm from "@/components/did/RegisterDIDForm";
+import AddVerificationMethodForm from "@/components/did/AddVerificationMethodForm";
+import ResolveControllerForm from "@/components/did/ResolveControllerForm";
 
 export default function DIDPage() {
   return (

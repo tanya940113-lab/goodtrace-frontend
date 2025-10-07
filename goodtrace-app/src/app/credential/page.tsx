@@ -1,6 +1,6 @@
-import IssueCredentialForm from "../components/credential/IssueCredentialForm";
-import RevokeCredentialForm from "../components/credential/RevokeCredentialForm";
-import QueryCredentialForm from "../components/credential/QueryCredentialForm";
+import IssueCredentialForm from "@/components/credential/IssueCredentialForm";
+import RevokeCredentialForm from "@/components/credential/RevokeCredentialForm";
+import QueryCredentialForm from "@/components/credential/QueryCredentialForm";
 
 export default function CredentialPage() {
   return (
