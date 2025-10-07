@@ -1,0 +1,162 @@
+[
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "recordId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "farmer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum FarmRecord.TaskType",
+				"name": "task",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "crop",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "didSignature",
+				"type": "string"
+			}
+		],
+		"name": "RecordCreated",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum FarmRecord.TaskType",
+				"name": "task",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "crop",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "didSignature",
+				"type": "string"
+			}
+		],
+		"name": "createRecord",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "getRecord",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "farmer",
+						"type": "address"
+					},
+					{
+						"internalType": "enum FarmRecord.TaskType",
+						"name": "task",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "crop",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "didSignature",
+						"type": "string"
+					}
+				],
+				"internalType": "struct FarmRecord.Record",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRecordCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "farmer",
+				"type": "address"
+			}
+		],
+		"name": "getRecordIndexesByFarmer",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
