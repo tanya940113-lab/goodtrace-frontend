@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { getCredentialContract } from "../../utils/credentialContract";
 import { toast } from "react-toastify";
