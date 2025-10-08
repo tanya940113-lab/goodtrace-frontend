@@ -5,19 +5,22 @@ import { toast } from "react-toastify";
 
 export default function RegisterDIDForm() {
   const [did, setDid] = useState("");
+  const [metadata, setMetadata] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
 
+  // ✅ 這就是 handleRegister 函式
   const handleRegister = async () => {
     try {
       setIsRegistering(true);
       toast.info("📝 註冊中...");
 
       const contract = await getDIDRegistryContract();
-      const tx = await contract.registerDID(did);
+      const tx = await contract.registerDID(did, metadata); // 傳入兩個參數
       await tx.wait();
 
       toast.success("✅ DID 註冊成功！");
       setDid("");
+      setMetadata("");
     } catch (err) {
       console.error(err);
       toast.error("❌ 註冊失敗，請重試");
@@ -34,6 +37,13 @@ export default function RegisterDIDForm() {
         value={did}
         onChange={(e) => setDid(e.target.value)}
         placeholder="輸入 DID"
+        className="border px-2 py-1 w-full"
+      />
+      <input
+        type="text"
+        value={metadata}
+        onChange={(e) => setMetadata(e.target.value)}
+        placeholder="輸入 Metadata（選填）"
         className="border px-2 py-1 w-full"
       />
       <button
