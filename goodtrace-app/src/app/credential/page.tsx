@@ -4,12 +4,21 @@ import QueryCredentialForm from "@/components/credential/QueryCredentialForm";
 
 export default function CredentialPage() {
   return (
-    <div className="min-h-screen bg-[#fff9e6]">
-      <div className="max-w-xl mx-auto space-y-6 py-8">
-        <h1 className="text-2xl font-bold text-center">憑證管理介面</h1>
-        <IssueCredentialForm />
-        <RevokeCredentialForm />
-        <QueryCredentialForm />
+    <div className="min-h-screen bg-[#fff9e6] text-gray-900 py-8">
+      <div className="max-w-xl mx-auto space-y-6">
+        <h1 className="text-2xl font-bold text-center text-gray-800">憑證管理介面</h1>
+
+        <div className="border border-gray-600 rounded-lg p-4 shadow-md bg-white">
+          <IssueCredentialForm />
+        </div>
+
+        <div className="border border-gray-600 rounded-lg p-4 shadow-md bg-white">
+          <RevokeCredentialForm />
+        </div>
+
+        <div className="border border-gray-600 rounded-lg p-4 shadow-md bg-white">
+          <QueryCredentialForm />
+        </div>
       </div>
     </div>
   );
