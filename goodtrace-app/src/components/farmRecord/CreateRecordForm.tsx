@@ -3,10 +3,19 @@ import React, { useState } from "react";
 import { getFarmRecordContract } from "../../utils/farmRecordContract";
 import { toast } from "react-toastify";
 
+// 定義 TaskType 枚舉
+enum TaskType {
+  Sowing = 0,
+  Fertilizing = 1,
+  Irrigating = 2,
+  Harvesting = 3
+}
+
 export default function CreateRecordForm() {
-  const [farmer, setFarmer] = useState("");
+  const [task, setTask] = useState<number>(TaskType.Sowing);
   const [crop, setCrop] = useState("");
-  const [activity, setActivity] = useState("");
+  const [description, setDescription] = useState("");
+  const [didSignature, setDidSignature] = useState("");
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCreate = async () => {
@@ -15,13 +24,14 @@ export default function CreateRecordForm() {
       toast.info("🌾 建立中...");
 
       const contract = await getFarmRecordContract();
-      const tx = await contract.createRecord(farmer, crop, activity);
+      const tx = await contract.createRecord(task, crop, description, didSignature);
       await tx.wait();
 
       toast.success("✅ 農務紀錄建立成功！");
-      setFarmer("");
       setCrop("");
-      setActivity("");
+      setDescription("");
+      setDidSignature("");
+      setTask(TaskType.Sowing);
     } catch (err) {
       console.error(err);
       toast.error("❌ 建立失敗，請重試");
@@ -33,27 +43,46 @@ export default function CreateRecordForm() {
   return (
     <div className="space-y-2">
       <h2 className="text-lg font-bold">建立農務紀錄</h2>
-      <input
-        type="text"
-        value={farmer}
-        onChange={(e) => setFarmer(e.target.value)}
-        placeholder="農民地址"
+
+      <label className="block">作業類型：</label>
+      <select
+        value={task}
+        onChange={(e) => setTask(Number(e.target.value))}
         className="border px-2 py-1 w-full"
-      />
+      >
+        <option value={TaskType.Sowing}>Sowing</option>
+        <option value={TaskType.Fertilizing}>Fertilizing</option>
+        <option value={TaskType.Irrigating}>Irrigating</option>
+        <option value={TaskType.Harvesting}>Harvesting</option>
+      </select>
+
+      <label className="block">作物名稱：</label>
       <input
         type="text"
         value={crop}
         onChange={(e) => setCrop(e.target.value)}
-        placeholder="作物名稱"
+        placeholder="例如：tomato"
         className="border px-2 py-1 w-full"
       />
+
+      <label className="block">作業內容：</label>
       <input
         type="text"
-        value={activity}
-        onChange={(e) => setActivity(e.target.value)}
-        placeholder="作業內容"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="例如：施肥作業"
         className="border px-2 py-1 w-full"
       />
+
+      <label className="block">DID 簽章：</label>
+      <input
+        type="text"
+        value={didSignature}
+        onChange={(e) => setDidSignature(e.target.value)}
+        placeholder="例如：did:example:123456789abcdefghi"
+        className="border px-2 py-1 w-full"
+      />
+
       <button
         onClick={handleCreate}
         disabled={isCreating}
