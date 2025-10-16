@@ -73,8 +73,13 @@
 		],
 		"name": "createRecord",
 		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+  		"stateMutability": "nonpayable",
+		"type": "function",
+		 "inputs": [
+    { "name": "owner", "type": "address" },
+    { "name": "crop", "type": "string" },
+    { "name": "quantity", "type": "uint256" }
+  ]
 	},
 	{
 		"inputs": [
