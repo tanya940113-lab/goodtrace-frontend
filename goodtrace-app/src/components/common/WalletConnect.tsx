@@ -16,12 +16,24 @@ export default function WalletConnect() {
         return;
       }
 
-      const accounts = await window.ethereum.request({
+      // 先檢查是否已連接
+      const existingAccounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+
+      if (existingAccounts.length > 0) {
+        setAccount(existingAccounts[0]);
+        toast.success("✅ 已連接錢包！");
+        return;
+      }
+
+      // 若尚未連接，請求連接
+      const requestedAccounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
 
-      if (accounts.length > 0) {
-        setAccount(accounts[0]);
+      if (requestedAccounts.length > 0) {
+        setAccount(requestedAccounts[0]);
         toast.success("✅ 錢包連接成功！");
       } else {
         toast.warning("⚠️ 未找到錢包地址");
@@ -35,7 +47,7 @@ export default function WalletConnect() {
   };
 
   useEffect(() => {
-    // 自動檢查是否已連接
+    // 自動檢查是否已連接（不顯示提示）
     const checkConnection = async () => {
       if (window.ethereum) {
         const accounts = await window.ethereum.request({
@@ -65,3 +77,4 @@ export default function WalletConnect() {
     </div>
   );
 }
+``
