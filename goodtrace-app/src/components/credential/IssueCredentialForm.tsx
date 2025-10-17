@@ -7,9 +7,12 @@ import { ethers } from "ethers";
 
 export default function IssueCredentialForm() {
   const [recipient, setRecipient] = useState("");
+  const [claim, setClaim] = useState("");
   const [recordId, setRecordId] = useState("");
   const [recordIds, setRecordIds] = useState<number[]>([]);
   const [isIssuing, setIsIssuing] = useState(false);
+
+  const recordContractAddress = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"; // FarmRecord 合約地址
 
   useEffect(() => {
     const fetchRecordIds = async () => {
@@ -19,7 +22,7 @@ export default function IssueCredentialForm() {
         const signer = await provider.getSigner();
         const myAddress = await signer.getAddress();
         const ids = await contract.getRecordIndexesByFarmer(myAddress);
-        setRecordIds(ids.map((id: bigint) => Number(id))); // 轉成 number
+        setRecordIds(ids.map((id: bigint) => Number(id)));
       } catch (err) {
         console.error("查詢農務紀錄失敗：", err);
         toast.error("❌ 無法取得農務紀錄 ID");
@@ -31,15 +34,26 @@ export default function IssueCredentialForm() {
 
   const handleIssue = async () => {
     try {
+      if (!recipient || !claim || !recordId) {
+        toast.warning("⚠️ 請填寫所有欄位");
+        return;
+      }
+
       setIsIssuing(true);
       toast.info("🚀 開始發行憑證...");
 
       const contract = await getCredentialContract();
-      const tx = await contract.issueCredential(recipient, recordId);
+      const tx = await contract.issueCredential(
+        recipient,
+        claim,
+        recordContractAddress,
+        recordId
+      );
       await tx.wait();
 
       toast.success("✅ 憑證發行成功！");
       setRecipient("");
+      setClaim("");
       setRecordId("");
     } catch (err) {
       console.error(err);
@@ -58,6 +72,14 @@ export default function IssueCredentialForm() {
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
         placeholder="接收者地址"
+        className="border px-2 py-1 w-full"
+      />
+
+      <input
+        type="text"
+        value={claim}
+        onChange={(e) => setClaim(e.target.value)}
+        placeholder="憑證內容（例如：農務紀錄完成）"
         className="border px-2 py-1 w-full"
       />
 
