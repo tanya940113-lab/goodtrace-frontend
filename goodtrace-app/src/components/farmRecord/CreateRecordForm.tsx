@@ -50,10 +50,10 @@ export default function CreateRecordForm() {
         onChange={(e) => setTask(Number(e.target.value))}
         className="border px-2 py-1 w-full"
       >
-        <option value={TaskType.Sowing}>Sowing</option>
-        <option value={TaskType.Fertilizing}>Fertilizing</option>
-        <option value={TaskType.Irrigating}>Irrigating</option>
-        <option value={TaskType.Harvesting}>Harvesting</option>
+        <option value={TaskType.Sowing}>播種</option>
+        <option value={TaskType.Fertilizing}>施肥</option>
+        <option value={TaskType.Irrigating}>灌溉</option>
+        <option value={TaskType.Harvesting}>收割</option>
       </select>
 
       <label className="block">作物名稱：</label>
@@ -61,7 +61,7 @@ export default function CreateRecordForm() {
         type="text"
         value={crop}
         onChange={(e) => setCrop(e.target.value)}
-        placeholder="例如：tomato"
+        placeholder="例如：番茄"
         className="border px-2 py-1 w-full"
       />
 
